@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <div class="text-center mb-4">
+      <h1 class="display-4">Smart House Dashboard</h1>
+      <p class="lead">อัปเดตข้อมูลอุณหภูมิและความชื้นแบบเรียลไทม์</p>
+    </div>
+  
+    <div class="row">
+      <!-- Card for Temperature -->
+      <div class="col-md-6">
+        <div class="card text-center shadow-lg">
+          <div class="card-body">
+            <h5 class="card-title">อุณหภูมิ</h5>
+            <h2 class="display-2 text-primary">{{ sensorData.temperature[sensorData.temperature.length - 1] }}°C</h2>
+            <p class="card-text">ข้อมูลล่าสุด: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Card for Humidity -->
+      <div class="col-md-6">
+        <div class="card text-center shadow-lg">
+          <div class="card-body">
+            <h5 class="card-title">ความชื้น</h5>
+            <h2 class="display-2 text-info">{{ sensorData.humidity[sensorData.humidity.length - 1] }}%</h2>
+            <p class="card-text">ข้อมูลล่าสุด: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container mt-5">
+    <div class="text-center">
+      <h2>กราฟข้อมูล</h2>
+      <canvas id="temperatureChart"></canvas>
+    </div>
+  </div>
+  
