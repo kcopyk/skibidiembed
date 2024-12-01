@@ -25,18 +25,29 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.createTemperatureChart();
+    this.checkInitialTheme();
   }
 
-  toggleDarkMode() {
-    // Toggle the dark mode class on the body element
-    this.isDarkMode = !this.isDarkMode;
-    if (this.isDarkMode) {
-      document.body.classList.add('dark-mode'); // Apply dark mode
-    } else {
-      document.body.classList.remove('dark-mode'); // Remove dark mode
+  // Check initial theme from localStorage or default to light mode
+  checkInitialTheme() {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      this.isDarkMode = true;
+      document.body.classList.add('dark-mode');
     }
   }
-  
+
+  // Toggle dark mode
+  toggleDarkMode() {
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');  // Save theme in localStorage
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');  // Save theme in localStorage
+    }
+  }
 
   createTemperatureChart() {
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;

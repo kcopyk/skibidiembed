@@ -4,8 +4,12 @@
     <p class="lead text-muted">Live updates on your house environment</p>
   </div>
 
-  <!-- Dark Mode Toggle Button (placed at the top-right) -->
-  <button class="btn btn-toggle-dark-mode" (click)="toggleDarkMode()">Toggle Dark Mode</button>
+  <!-- Dark Mode Toggle Slider -->
+  <label class="toggle-container">
+    <i class="fas fa-sun sun-icon" *ngIf="!isDarkMode"></i>
+    <input type="checkbox" class="toggle-slider" (change)="toggleDarkMode()" [checked]="isDarkMode" />
+    <i class="fas fa-moon moon-icon" *ngIf="isDarkMode"></i>
+  </label>
 
   <!-- Top Row: Temperature and Humidity Cards -->
   <div class="row g-4 justify-content-center">
@@ -15,7 +19,6 @@
         <div class="card-body">
           <h5 class="card-title">Temperature</h5>
           <div class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-thermometer-half text-primary display-3 me-3"></i>
             <h2 class="display-3 text-primary m-0">
               {{ sensorData.temperature[sensorData.temperature.length - 1] }}°C
             </h2>
@@ -33,7 +36,6 @@
         <div class="card-body">
           <h5 class="card-title">Humidity</h5>
           <div class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-tint text-info display-3 me-3"></i>
             <h2 class="display-3 text-info m-0">
               {{ sensorData.humidity[sensorData.humidity.length - 1] }}%
             </h2>
@@ -54,11 +56,6 @@
         <div class="card-body">
           <h5 class="card-title">Motion Detection</h5>
           <div class="d-flex justify-content-center align-items-center">
-            <i
-              class="fas fa-walking display-3"
-              [class.text-success]="motionDetected"
-              [class.text-danger]="!motionDetected"
-            ></i>
             <h2 class="display-5 ms-3" [class.text-success]="motionDetected" [class.text-danger]="!motionDetected">
               {{ motionDetected ? 'Detected' : 'None' }}
             </h2>
@@ -73,7 +70,6 @@
         <div class="card-body">
           <h5 class="card-title">Chance of Rain</h5>
           <div class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-cloud-rain text-warning display-3 me-3"></i>
             <h2 class="display-4 text-warning m-0">{{ rainPercentage }}%</h2>
           </div>
         </div>
@@ -86,7 +82,6 @@
         <div class="card-body">
           <h5 class="card-title">Mood</h5>
           <div class="d-flex justify-content-center align-items-center">
-            <i class="fas fa-smile text-warning display-3 me-3"></i>
             <h2 class="display-3 ms-3">{{ getMoodEmoji() }}</h2>
           </div>
         </div>
