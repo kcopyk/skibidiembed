@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,10 +16,10 @@ export class DashboardComponent implements OnInit {
     timestamps: ['10:00', '11:00', '12:00', '13:00', '14:00']
   };
 
-  // Additional data
-  motionDetected: boolean = true; // True if motion is detected
-  rainPercentage: number = 70; // Simulated rain percentage
-  mood: string = 'smile'; // Can be 'smile', 'sad', or 'neutral'
+  motionDetected: boolean = true;
+  rainPercentage: number = 70;
+  mood: string = 'smile';
+  isDarkMode: boolean = false;
 
   constructor() {}
 
@@ -26,9 +27,20 @@ export class DashboardComponent implements OnInit {
     this.createTemperatureChart();
   }
 
+  toggleDarkMode() {
+    // Toggle the dark mode class on the body element
+    this.isDarkMode = !this.isDarkMode;
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-mode'); // Apply dark mode
+    } else {
+      document.body.classList.remove('dark-mode'); // Remove dark mode
+    }
+  }
+  
+
   createTemperatureChart() {
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;
-  
+    
     if (ctx) {
       new Chart(ctx, {
         type: 'line',
@@ -63,7 +75,7 @@ export class DashboardComponent implements OnInit {
           },
           scales: {
             x: {
-              type: 'category', // Fix the scale type issue
+              type: 'category',
               title: {
                 display: true,
                 text: 'Time'
@@ -84,12 +96,11 @@ export class DashboardComponent implements OnInit {
   }    
 
   getMoodEmoji(): string {
-    // Return emoji based on mood
     switch (this.mood) {
       case 'smile': return '😊';
       case 'sad': return '😢';
       case 'neutral': return '😐';
-      default: return '❓';
+      default: return '😊';
     }
   }
 }

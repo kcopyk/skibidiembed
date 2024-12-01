@@ -1,72 +1,94 @@
 <div class="container mt-5">
   <div class="text-center mb-4">
-    <h1 class="display-4">Smart House Dashboard</h1>
-    <p class="lead">อัปเดตข้อมูลอุณหภูมิและความชื้นแบบเรียลไทม์</p>
+    <h1 class="display-4">Smarter Home Dashboard</h1>
+    <p class="lead text-muted">Live updates on your house environment</p>
   </div>
 
-  <!-- Cards Row -->
-  <div class="row">
+  <!-- Dark Mode Toggle Button (placed at the top-right) -->
+  <button class="btn btn-toggle-dark-mode" (click)="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <!-- Top Row: Temperature and Humidity Cards -->
+  <div class="row g-4 justify-content-center">
     <!-- Card for Temperature -->
-    <div class="col-md-6">
-      <div class="card text-center shadow-lg">
+    <div class="col-md-6 col-lg-4">
+      <div class="card text-center shadow-lg border-0">
         <div class="card-body">
-          <h5 class="card-title">อุณหภูมิ</h5>
-          <h2 class="display-2 text-primary">
-            {{ sensorData.temperature[sensorData.temperature.length - 1] }}°C
-          </h2>
-          <p class="card-text">
-            ข้อมูลล่าสุด: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
+          <h5 class="card-title">Temperature</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="fas fa-thermometer-half text-primary display-3 me-3"></i>
+            <h2 class="display-3 text-primary m-0">
+              {{ sensorData.temperature[sensorData.temperature.length - 1] }}°C
+            </h2>
+          </div>
+          <p class="card-text text-muted">
+            Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
           </p>
         </div>
       </div>
     </div>
 
     <!-- Card for Humidity -->
-    <div class="col-md-6">
-      <div class="card text-center shadow-lg">
+    <div class="col-md-6 col-lg-4">
+      <div class="card text-center shadow-lg border-0">
         <div class="card-body">
-          <h5 class="card-title">ความชื้น</h5>
-          <h2 class="display-2 text-info">
-            {{ sensorData.humidity[sensorData.humidity.length - 1] }}%
-          </h2>
-          <p class="card-text">
-            ข้อมูลล่าสุด: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
+          <h5 class="card-title">Humidity</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="fas fa-tint text-info display-3 me-3"></i>
+            <h2 class="display-3 text-info m-0">
+              {{ sensorData.humidity[sensorData.humidity.length - 1] }}%
+            </h2>
+          </div>
+          <p class="card-text text-muted">
+            Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
           </p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Additional Cards Row -->
-  <div class="row mt-4">
+  <!-- Bottom Row: Motion, Rain, and Mood Cards -->
+  <div class="row g-4 mt-4 justify-content-center">
     <!-- Card for Motion Detection -->
-    <div class="col-md-4">
-      <div class="card text-center shadow-lg">
+    <div class="col-md-4 col-lg-3">
+      <div class="card text-center shadow-lg border-0">
         <div class="card-body">
-          <h5 class="card-title">การตรวจจับการเคลื่อนไหว</h5>
-          <h2 class="display-4" [class.text-success]="motionDetected" [class.text-danger]="!motionDetected">
-            {{ motionDetected ? 'ตรวจพบ' : 'ไม่มี' }}
-          </h2>
+          <h5 class="card-title">Motion Detection</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <i
+              class="fas fa-walking display-3"
+              [class.text-success]="motionDetected"
+              [class.text-danger]="!motionDetected"
+            ></i>
+            <h2 class="display-5 ms-3" [class.text-success]="motionDetected" [class.text-danger]="!motionDetected">
+              {{ motionDetected ? 'Detected' : 'None' }}
+            </h2>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Card for Rain Percentage -->
-    <div class="col-md-4">
-      <div class="card text-center shadow-lg">
+    <div class="col-md-4 col-lg-3">
+      <div class="card text-center shadow-lg border-0">
         <div class="card-body">
-          <h5 class="card-title">โอกาสฝนตก</h5>
-          <h2 class="display-4 text-warning">{{ rainPercentage }}%</h2>
+          <h5 class="card-title">Chance of Rain</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="fas fa-cloud-rain text-warning display-3 me-3"></i>
+            <h2 class="display-4 text-warning m-0">{{ rainPercentage }}%</h2>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Card for Mood Detection -->
-    <div class="col-md-4">
-      <div class="card text-center shadow-lg">
+    <div class="col-md-4 col-lg-3">
+      <div class="card text-center shadow-lg border-0">
         <div class="card-body">
-          <h5 class="card-title">อารมณ์</h5>
-          <h2 class="display-4">{{ getMoodEmoji() }}</h2>
+          <h5 class="card-title">Mood</h5>
+          <div class="d-flex justify-content-center align-items-center">
+            <i class="fas fa-smile text-warning display-3 me-3"></i>
+            <h2 class="display-3 ms-3">{{ getMoodEmoji() }}</h2>
+          </div>
         </div>
       </div>
     </div>
@@ -76,7 +98,7 @@
 <!-- Chart Section -->
 <div class="container mt-5">
   <div class="text-center">
-    <h2>กราฟข้อมูล</h2>
+    <h2>Data Graph</h2>
     <canvas id="temperatureChart"></canvas>
   </div>
 </div>

@@ -1,26 +1,104 @@
+/* Light mode (default) */
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 .card {
     border-radius: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .container {
-    max-width: 900px;
-  }
-  
-  #temperatureChart {
+    background-color: #f9f9f9;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+h5.card-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+}
+
+.text-center h1 {
+    font-weight: bold;
+    color: #333;
+}
+
+.text-muted {
+    font-size: 0.9rem;
+}
+
+#temperatureChart {
     max-height: 400px;
-    margin-top: 20px;
-  }
-  
-  .text-success {
-    color: green;
-  }
-  
-  .text-danger {
-    color: red;
-  }
-  
-  .text-warning {
-    color: orange;
-  }
-  
+    border-radius: 15px;
+    padding: 10px;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #212529;
+    color: #f8f9fa;
+}
+
+body.dark-mode .card {
+    background-color: #343a40;
+    color: #f8f9fa;
+}
+
+body.dark-mode .card-title, 
+body.dark-mode .card-text,
+body.dark-mode .text-muted {
+    color: #f8f9fa;
+}
+
+body.dark-mode .text-center h1 {
+    color: #f8f9fa;
+}
+
+body.dark-mode #temperatureChart {
+    background-color: #495057;
+}
+
+/* Dark mode specific hover styles for cards */
+body.dark-mode .card:hover {
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Mode Toggle Button Styles */
+.btn-toggle-dark-mode {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-toggle-dark-mode:hover {
+    background-color: #1976D2;
+}
+
+.btn-toggle-dark-mode:focus {
+    outline: none;
+}
+
+/* When Dark Mode is active, change button style */
+body.dark-mode .btn-toggle-dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+body.dark-mode .btn-toggle-dark-mode:hover {
+    background-color: #495057;
+}
