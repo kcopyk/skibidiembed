@@ -1,8 +1,8 @@
 <body [ngClass]="{'dark-mode': isDarkMode}">
   <div class="container-fluid d-flex flex-column">
     <!-- Header -->
-    <div class="text-center mb-4">
-      <h1 class="display-4">Smarter Home Dashboard</h1>
+    <div class="text-center mb-5">
+      <h1 class="display-4 text-shadow">Smarter Home Dashboard</h1>
       <p class="lead text-muted">Live updates on your house environment</p>
     </div>
 
@@ -20,10 +20,10 @@
     </label>
 
     <!-- Top Row: Temperature and Humidity -->
-    <div class="row g-4 justify-content-center">
+    <div class="row g-4 justify-content-center mb-4">
       <!-- Temperature Card -->
       <div class="col-md-6 col-lg-4">
-        <div class="card text-center shadow-lg border-0">
+        <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Temperature</h5>
             <h2 class="display-3 text-primary">
@@ -38,7 +38,7 @@
 
       <!-- Humidity Card -->
       <div class="col-md-6 col-lg-4">
-        <div class="card text-center shadow-lg border-0">
+        <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Humidity</h5>
             <h2 class="display-3 text-info">
@@ -56,15 +56,11 @@
     <div class="row g-4 mt-4 justify-content-center">
       <!-- Motion Detection -->
       <div class="col-md-4 col-lg-3">
-        <div class="card text-center shadow-lg border-0">
+        <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Motion Detection</h5>
-            <h2
-              class="display-5"
-              [class.text-success]="motionDetected"
-              [class.text-danger]="!motionDetected"
-            >
-              {{ motionDetected ? 'Detected' : 'None' }}
+            <h2 class="display-5" [ngClass]="{'text-success': sensorData.motionDetected[sensorData.motionDetected.length - 1], 'text-danger': !sensorData.motionDetected[sensorData.motionDetected.length - 1]}">
+              {{ sensorData.motionDetected[sensorData.motionDetected.length - 1] ? 'Motion Detected' : 'No Motion' }}
             </h2>
           </div>
         </div>
@@ -72,17 +68,17 @@
 
       <!-- Rain Percentage -->
       <div class="col-md-4 col-lg-3">
-        <div class="card text-center shadow-lg border-0">
+        <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Chance of Rain</h5>
-            <h2 class="display-4 text-warning">{{ rainPercentage }}%</h2>
+            <h2 class="display-4 text-warning">{{ sensorData.rainPercentage[sensorData.rainPercentage.length - 1] }}%</h2>
           </div>
         </div>
       </div>
 
       <!-- Mood -->
       <div class="col-md-4 col-lg-3">
-        <div class="card text-center shadow-lg border-0">
+        <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Mood</h5>
             <h2 class="display-3">{{ getMoodEmoji() }}</h2>

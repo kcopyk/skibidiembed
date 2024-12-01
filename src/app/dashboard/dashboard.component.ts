@@ -14,12 +14,14 @@ export class DashboardComponent implements OnInit {
   sensorData = {
     temperature: [] as number[],
     humidity: [] as number[],
+    motionDetected: [] as boolean[], // Array to store motion detection status over time
+    rainPercentage: [] as number[],  // Array to store rain percentage over time
+    mood: [] as string[],           // Array to store mood status over time
     timestamps: [] as string[]
   };
+  
 
-  motionDetected: boolean = false;
-  rainPercentage: number = 0;
-  mood: string = 'sad';
+  
   isDarkMode: boolean = false;
 
   private mqttClient!: mqtt.MqttClient; // Use mqtt.MqttClient
@@ -42,12 +44,12 @@ export class DashboardComponent implements OnInit {
     this.sensorData = {
       temperature: [22, 23, 24, 25, 26],
       humidity: [45, 50, 55, 60, 65],
+      motionDetected: [true, false, true, false, true], // Simulate motion detection data
+      rainPercentage: [30, 40, 50, 60, 70], // Simulate rain percentage data
+      mood: ['smile', 'neutral', 'sad', 'smile', 'neutral'], // Simulate mood status
       timestamps: ['10:00', '10:05', '10:10', '10:15', '10:20']
     };
 
-    this.motionDetected = true;
-    this.rainPercentage = 30;
-    this.mood = 'smile';
     this.createTemperatureChart();
   }
 
@@ -64,12 +66,11 @@ export class DashboardComponent implements OnInit {
   }
 
   initMqtt() {
-    this.mqttClient = mqtt.connect(this.mqttUrl); // Correct usage
-
+    this.mqttClient = mqtt.connect(this.mqttUrl);
+  
     this.mqttClient.on('connect', () => {
       console.log('Connected to MQTT broker');
-      
-      // Subscribe to topics and log if there's an issue
+      // Subscribe to all sensor topics
       Object.values(this.topics).forEach((topic) => {
         this.mqttClient.subscribe(topic, (err) => {
           if (err) {
@@ -80,12 +81,12 @@ export class DashboardComponent implements OnInit {
         });
       });
     });
-
+  
     this.mqttClient.on('message', (topic, message) => {
       const value = message.toString();
       const timestamp = new Date().toLocaleTimeString();
       console.log(`Received message: ${value} from topic: ${topic}`);
-
+  
       if (topic === this.topics.temperature) {
         console.log(`New Temperature Data: ${value}`);
         this.sensorData.temperature.push(+value);
@@ -98,13 +99,14 @@ export class DashboardComponent implements OnInit {
         this.updateTemperatureChart();
       } else if (topic === this.topics.motion) {
         console.log(`Motion Detected: ${value}`);
-        this.motionDetected = value === 'Motion Detected';
+        this.sensorData.motionDetected.push(value === 'Motion Detected');
       } else if (topic === this.topics.rain) {
         console.log(`Rain Percentage: ${value}`);
-        this.rainPercentage = +value;
+        this.sensorData.rainPercentage.push(+value);
       }
     });
   }
+  
 
   createTemperatureChart() {
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;
@@ -160,11 +162,14 @@ export class DashboardComponent implements OnInit {
   }
 
   getMoodEmoji(): string {
-    switch (this.mood) {
+    const currentMood = this.sensorData.mood[this.sensorData.mood.length - 1]; // Get the latest mood
+    switch (currentMood) {
       case 'smile': return '😊';
       case 'sad': return '😢';
       case 'neutral': return '😐';
       default: return '-';
     }
   }
+  
+  
 }

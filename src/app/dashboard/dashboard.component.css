@@ -1,7 +1,8 @@
 html, body {
-  height: 135%;  /* Ensure full height */
+  height: 150%;  /* Ensure full height */
   margin: 0;     /* Remove default margin */
   padding: 0;    /* Remove any padding */
+  font-family: Arial, sans-serif;
 }
 
 /* Light mode (default) */
@@ -12,6 +13,17 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;  /* Ensure body fills the screen */
+}
+
+/* Custom Card Styles */
+.custom-card {
+  border-radius: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Dark Mode Styles */
@@ -78,9 +90,9 @@ body.dark-mode .card:hover {
   transition: transform 0.3s;
 }
 
-.toggle-slider:checked {
+/* .toggle-slider:checked {
   background-color: #2196F3;
-}
+} */
 
 .toggle-slider:checked:before {
   transform: translateX(20px);
@@ -126,13 +138,25 @@ body.dark-mode .chart-container {
 #temperatureChart {
   width: 100%; /* Make the canvas take up the full width of its container */
   height: 40vh; /* Set the height to 40% of the viewport height */
-  max-height: 400px; /* Optionally set a max-height to prevent the chart from becoming too large */
-  min-height: 200px; /* Set a minimum height to ensure it's not too small */
   margin: 0 auto; /* Center the canvas horizontally */
 }
 
-
-
-body.dark-mode .container-fluid {
+/* body.dark-mode .container-fluid {
   min-height: 100vh;
+} */
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .card-body h2 {
+    font-size: 1.5rem;
+  }
+
+  .toggle-container {
+    top: 10px;
+    right: 10px;
+  }
+
+  #temperatureChart {
+    height: 30vh;
+  }
 }
