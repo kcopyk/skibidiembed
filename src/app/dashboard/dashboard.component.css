@@ -1,14 +1,26 @@
 .card {
     border-radius: 15px;
     margin-bottom: 20px;
-}
+  }
   
-.container {
+  .container {
     max-width: 900px;
-}
+  }
   
-#temperatureChart {
+  #temperatureChart {
     max-height: 400px;
     margin-top: 20px;
-}
+  }
+  
+  .text-success {
+    color: green;
+  }
+  
+  .text-danger {
+    color: red;
+  }
+  
+  .text-warning {
+    color: orange;
+  }
   

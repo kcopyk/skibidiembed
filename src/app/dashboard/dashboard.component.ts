@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
+Chart.register(...registerables);
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -14,6 +15,11 @@ export class DashboardComponent implements OnInit {
     timestamps: ['10:00', '11:00', '12:00', '13:00', '14:00']
   };
 
+  // Additional data
+  motionDetected: boolean = true; // True if motion is detected
+  rainPercentage: number = 70; // Simulated rain percentage
+  mood: string = 'smile'; // Can be 'smile', 'sad', or 'neutral'
+
   constructor() {}
 
   ngOnInit() {
@@ -22,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
   createTemperatureChart() {
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;
-
+  
     if (ctx) {
       new Chart(ctx, {
         type: 'line',
@@ -35,7 +41,7 @@ export class DashboardComponent implements OnInit {
               borderColor: 'rgba(75, 192, 192, 1)',
               backgroundColor: 'rgba(75, 192, 192, 0.2)',
               fill: true,
-              tension: 0.4 // Smoothing effect on the line
+              tension: 0.4
             },
             {
               label: 'Humidity (%)',
@@ -57,6 +63,7 @@ export class DashboardComponent implements OnInit {
           },
           scales: {
             x: {
+              type: 'category', // Fix the scale type issue
               title: {
                 display: true,
                 text: 'Time'
@@ -73,6 +80,16 @@ export class DashboardComponent implements OnInit {
       });
     } else {
       console.error('Canvas element not found');
+    }
+  }    
+
+  getMoodEmoji(): string {
+    // Return emoji based on mood
+    switch (this.mood) {
+      case 'smile': return '😊';
+      case 'sad': return '😢';
+      case 'neutral': return '😐';
+      default: return '❓';
     }
   }
 }
