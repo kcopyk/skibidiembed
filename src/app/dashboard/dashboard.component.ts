@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import * as mqtt from 'mqtt'; // Corrected import
 
+
 Chart.register(...registerables);
 
 @Component({
