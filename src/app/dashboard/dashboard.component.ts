@@ -42,11 +42,11 @@ export class DashboardComponent implements OnInit {
     // this.initMqtt(); // Uncomment after fixing
     // Simulate some mock sensor data for testing the frontend
     this.sensorData = {
-      temperature: [22, 23, 24, 25, 26],
-      humidity: [45, 50, 55, 60, 65],
-      motionDetected: [true, false, true, false, true], // Simulate motion detection data
+      temperature: [22, 23, 24, 25, 15],
+      humidity: [45, 50, 55, 60, 80],
+      motionDetected: [true, false, true, false, false], // Simulate motion detection data
       rainPercentage: [30, 40, 50, 60, 70], // Simulate rain percentage data
-      mood: ['smile', 'neutral', 'sad', 'smile', 'neutral'], // Simulate mood status
+      mood: ['smile', 'neutral', 'sad', 'smile', 'neutral','sad'], // Simulate mood status
       timestamps: ['10:00', '10:05', '10:10', '10:15', '10:20']
     };
 
