@@ -1,7 +1,7 @@
-/* Ensure full height for html and body */
 html, body {
-  height: 100%; /* Ensures the body covers the full height */
-  margin: 0;    /* Remove default margin */
+  height: 135%;  /* Ensure full height */
+  margin: 0;     /* Remove default margin */
+  padding: 0;    /* Remove any padding */
 }
 
 /* Light mode (default) */
@@ -9,41 +9,9 @@ body {
   background-color: #f8f9fa;
   color: #212529;
   transition: background-color 0.3s, color 0.3s;
-}
-
-.card {
-  border-radius: 15px;
-  background-color: #f9f9f9;
-  transition: transform 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-}
-
-.card:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-h5.card-title {
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #333;
-}
-
-.text-center h1 {
-  font-weight: bold;
-  color: #333;
-}
-
-.text-muted {
-  font-size: 0.9rem;
-}
-
-#temperatureChart {
-  max-height: 400px;
-  border-radius: 15px;
-  padding: 10px;
+  min-height: 100vh;  /* Ensure body fills the screen */
 }
 
 /* Dark Mode Styles */
@@ -60,7 +28,7 @@ body.dark-mode .card {
 body.dark-mode .card-title, 
 body.dark-mode .card-text,
 body.dark-mode .text-muted {
-  color: #f8f9fa;
+  color: #f8f9fa !important;
 }
 
 body.dark-mode .text-center h1 {
@@ -136,10 +104,34 @@ body.dark-mode .toggle-slider:checked:before {
 
 /* Ensure the container fills the height of the viewport */
 .container-fluid {
-  min-height: 100vh; /* Makes the container take up at least the full screen height */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-start;
+  padding-bottom: 0;  /* Remove extra space */
 }
+
+/* Adjust height of chart container based on mode */
+.chart-container {
+  flex-grow: 1;
+  height: calc(100vh - 200px); /* Adjust based on header and top rows */
+  transition: height 0.3s ease;  /* Smooth transition between modes */
+}
+
+body.dark-mode .chart-container {
+  height: calc(100vh - 150px); /* Increase height in dark mode to cover more space */
+}
+
+#temperatureChart {
+  width: 100%; /* Make the canvas take up the full width of its container */
+  height: 40vh; /* Set the height to 40% of the viewport height */
+  max-height: 400px; /* Optionally set a max-height to prevent the chart from becoming too large */
+  min-height: 200px; /* Set a minimum height to ensure it's not too small */
+  margin: 0 auto; /* Center the canvas horizontally */
+}
+
+
 
 body.dark-mode .container-fluid {
   min-height: 100vh;
