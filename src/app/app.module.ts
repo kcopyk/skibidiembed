@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';  // Router module for routing
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { appRoutes } from './app.routes';
+import { appRoutes } from './app.routes';  // Import the routing configuration
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
   ],
   imports: [
     BrowserModule, 
-    RouterModule.forRoot(appRoutes), // Add routing configuration
+    RouterModule.forRoot(appRoutes), // Set up routing
     FormsModule
   ],
   providers: [],
