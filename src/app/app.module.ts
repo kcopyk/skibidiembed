@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { appRoutes } from './app.routes';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { appRoutes } from './app.routes';
   ],
   imports: [
     BrowserModule, 
-    RouterModule.forRoot(appRoutes) // Add routing configuration
+    RouterModule.forRoot(appRoutes), // Add routing configuration
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent] // Bootstrap the root component

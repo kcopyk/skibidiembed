@@ -18,38 +18,51 @@ export class DashboardComponent implements OnInit {
 
   motionDetected: boolean = true;
   rainPercentage: number = 70;
-  mood: string = 'smile';
+  mood: string = 'sad';
   isDarkMode: boolean = false;
 
   constructor() {}
 
   ngOnInit() {
-    this.createTemperatureChart();
     this.checkInitialTheme();
+    this.createTemperatureChart();
   }
 
   // Check initial theme from localStorage or default to light mode
   checkInitialTheme() {
     const storedTheme = localStorage.getItem('theme');
+    console.log('Stored theme from localStorage:', storedTheme);
+
     if (storedTheme === 'dark') {
       this.isDarkMode = true;
       document.body.classList.add('dark-mode');
+      console.log('Dark mode is applied'); // Debugging log
+    } else {
+      document.body.classList.remove('dark-mode');
+      console.log('Light mode is applied'); // Debugging log
     }
   }
 
   // Toggle dark mode
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
+
+    // Debugging log to show the current state
+    console.log('isDarkMode after toggle:', this.isDarkMode);
+
     if (this.isDarkMode) {
       document.body.classList.add('dark-mode');
       localStorage.setItem('theme', 'dark');  // Save theme in localStorage
+      console.log('Dark mode activated and saved to localStorage'); // Debugging log
     } else {
       document.body.classList.remove('dark-mode');
       localStorage.setItem('theme', 'light');  // Save theme in localStorage
+      console.log('Light mode activated and saved to localStorage'); // Debugging log
     }
   }
 
   createTemperatureChart() {
+    
     const ctx = document.getElementById('temperatureChart') as HTMLCanvasElement;
     
     if (ctx) {
@@ -111,7 +124,7 @@ export class DashboardComponent implements OnInit {
       case 'smile': return '😊';
       case 'sad': return '😢';
       case 'neutral': return '😐';
-      default: return '😊';
+      default: return '-';
     }
   }
 }

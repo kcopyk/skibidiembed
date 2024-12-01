@@ -1,99 +1,84 @@
-<div class="container mt-5">
-  <div class="text-center mb-4">
-    <h1 class="display-4">Smarter Home Dashboard</h1>
-    <p class="lead text-muted">Live updates on your house environment</p>
-  </div>
+<body [ngClass]="{'dark-mode': isDarkMode}">
+  <div class="container mt-5">
+    <div class="text-center mb-4">
+      <h1 class="display-4">Smarter Home Dashboard</h1>
+      <p class="lead text-muted">Live updates on your house environment</p>
+    </div>
 
-  <!-- Dark Mode Toggle Slider -->
-  <label class="toggle-container">
-    <i class="fas fa-sun sun-icon" *ngIf="!isDarkMode"></i>
-    <input type="checkbox" class="toggle-slider" (change)="toggleDarkMode()" [checked]="isDarkMode" />
-    <i class="fas fa-moon moon-icon" *ngIf="isDarkMode"></i>
-  </label>
+    <!-- Dark Mode Toggle Slider -->
+    <label class="toggle-container">
+      <input type="checkbox" class="toggle-slider" (change)="toggleDarkMode()" [checked]="isDarkMode" />
+      <i class="fas fa-sun sun-icon" *ngIf="!isDarkMode"></i>
+      <i class="fas fa-moon moon-icon" *ngIf="isDarkMode"></i>
+    </label>
 
-  <!-- Top Row: Temperature and Humidity Cards -->
-  <div class="row g-4 justify-content-center">
-    <!-- Card for Temperature -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card text-center shadow-lg border-0">
-        <div class="card-body">
-          <h5 class="card-title">Temperature</h5>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 class="display-3 text-primary m-0">
+    <!-- Top Row: Temperature and Humidity Cards -->
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card text-center shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title">Temperature</h5>
+            <h2 class="display-3 text-primary">
               {{ sensorData.temperature[sensorData.temperature.length - 1] }}°C
             </h2>
+            <p class="card-text text-muted">Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}</p>
           </div>
-          <p class="card-text text-muted">
-            Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
-          </p>
         </div>
       </div>
-    </div>
-
-    <!-- Card for Humidity -->
-    <div class="col-md-6 col-lg-4">
-      <div class="card text-center shadow-lg border-0">
-        <div class="card-body">
-          <h5 class="card-title">Humidity</h5>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 class="display-3 text-info m-0">
+      <div class="col-md-6 col-lg-4">
+        <div class="card text-center shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title">Humidity</h5>
+            <h2 class="display-3 text-info">
               {{ sensorData.humidity[sensorData.humidity.length - 1] }}%
             </h2>
+            <p class="card-text text-muted">Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}</p>
           </div>
-          <p class="card-text text-muted">
-            Latest update: {{ sensorData.timestamps[sensorData.timestamps.length - 1] }}
-          </p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Bottom Row: Motion, Rain, and Mood Cards -->
-  <div class="row g-4 mt-4 justify-content-center">
-    <!-- Card for Motion Detection -->
-    <div class="col-md-4 col-lg-3">
-      <div class="card text-center shadow-lg border-0">
-        <div class="card-body">
-          <h5 class="card-title">Motion Detection</h5>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 class="display-5 ms-3" [class.text-success]="motionDetected" [class.text-danger]="!motionDetected">
+    <!-- Bottom Row: Motion, Rain, and Mood Cards -->
+    <div class="row g-4 mt-4 justify-content-center">
+      <div class="col-md-4 col-lg-3">
+        <div class="card text-center shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title">Motion Detection</h5>
+            <h2 class="display-5" [class.text-success]="motionDetected" [class.text-danger]="!motionDetected">
               {{ motionDetected ? 'Detected' : 'None' }}
             </h2>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Card for Rain Percentage -->
-    <div class="col-md-4 col-lg-3">
-      <div class="card text-center shadow-lg border-0">
-        <div class="card-body">
-          <h5 class="card-title">Chance of Rain</h5>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 class="display-4 text-warning m-0">{{ rainPercentage }}%</h2>
+      <div class="col-md-4 col-lg-3">
+        <div class="card text-center shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title">Chance of Rain</h5>
+            <h2 class="display-4 text-warning">{{ rainPercentage }}%</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-3">
+        <div class="card text-center shadow-lg border-0">
+          <div class="card-body">
+            <h5 class="card-title">Mood</h5>
+            <h2 class="display-3">{{ getMoodEmoji() }}</h2>
+            <!-- <select [(ngModel)]="mood" class="form-control mt-2">
+              <option value="smile">😊 Smile</option>
+              <option value="sad">😢 Sad</option>
+              <option value="neutral">😐 Neutral</option>
+            </select> -->
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Card for Mood Detection -->
-    <div class="col-md-4 col-lg-3">
-      <div class="card text-center shadow-lg border-0">
-        <div class="card-body">
-          <h5 class="card-title">Mood</h5>
-          <div class="d-flex justify-content-center align-items-center">
-            <h2 class="display-3 ms-3">{{ getMoodEmoji() }}</h2>
-          </div>
-        </div>
+    <!-- Chart Section -->
+    <div class="container mt-5">
+      <div class="text-center">
+        <h2>Data Graph</h2>
+        <canvas id="temperatureChart"></canvas>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Chart Section -->
-<div class="container mt-5">
-  <div class="text-center">
-    <h2>Data Graph</h2>
-    <canvas id="temperatureChart"></canvas>
-  </div>
-</div>
+</body>
