@@ -27,7 +27,7 @@
           <div class="card-body">
             <h5 class="card-title">Temperature</h5>
             <h2 class="display-3 text-primary">
-              {{ sensorData.temperature.length ? sensorData.temperature[sensorData.temperature.length - 1] + '°C' : 'Loading...' }}
+              {{ sensorData.temperature.length ? sensorData.temperature[sensorData.temperature.length - 1] : 'Loading...' }}°C
             </h2>
             <p class="card-text text-muted">
               Latest update: {{ sensorData.timestamps.length ? sensorData.timestamps[sensorData.timestamps.length - 1] : 'Waiting for data...' }}
@@ -42,7 +42,7 @@
           <div class="card-body">
             <h5 class="card-title">Humidity</h5>
             <h2 class="display-3 text-info">
-              {{ sensorData.humidity.length ? sensorData.humidity[sensorData.humidity.length - 1] + '%' : 'Loading...' }}
+              {{ sensorData.humidity.length ? sensorData.humidity[sensorData.humidity.length - 1] : 'Loading...' }}%
             </h2>
             <p class="card-text text-muted">
               Latest update: {{ sensorData.timestamps.length ? sensorData.timestamps[sensorData.timestamps.length - 1] : 'Waiting for data...' }}
@@ -55,11 +55,11 @@
     <!-- Bottom Row: Motion, Rain, and Mood -->
     <div class="row g-4 mt-4 justify-content-center">
       <!-- Motion Detection -->
-      <div class="col-md-4 col-lg-3">
+      <div class="col-md-6 col-lg-4">
         <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Motion Detection</h5>
-            <h2 class="display-5" [ngClass]="{'text-success': sensorData.motionDetected[sensorData.motionDetected.length - 1], 'text-danger': !sensorData.motionDetected[sensorData.motionDetected.length - 1]}">
+            <h2 class="display-3" [ngClass]="{'text-success': sensorData.motionDetected[sensorData.motionDetected.length - 1], 'text-danger': !sensorData.motionDetected[sensorData.motionDetected.length - 1]}">
               {{ sensorData.motionDetected[sensorData.motionDetected.length - 1] ? 'Motion Detected' : 'No Motion' }}
             </h2>
           </div>
@@ -67,32 +67,34 @@
       </div>
 
       <!-- Rain Percentage -->
-      <div class="col-md-4 col-lg-3">
+      <div class="col-md-6 col-lg-4">
         <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Chance of Rain</h5>
-            <h2 class="display-4 text-warning">{{ sensorData.rainPercentage[sensorData.rainPercentage.length - 1] }}%</h2>
+            <h2 class="display-3 text-warning">
+              {{ sensorData.rainPercentage.length ? sensorData.rainPercentage[sensorData.rainPercentage.length - 1] : 'Loading...' }}%
+            </h2>
           </div>
         </div>
       </div>
 
       <!-- Mood -->
-      <div class="col-md-4 col-lg-3">
+      <!-- <div class="col-md-4 col-lg-3">
         <div class="card text-center shadow-lg border-0 custom-card">
           <div class="card-body">
             <h5 class="card-title">Mood</h5>
             <h2 class="display-3">{{ getMoodEmoji() }}</h2>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Chart Section -->
-    <div class="chart-container mt-5">
+    <!-- <div class="chart-container mt-5">
       <div class="text-center">
         <h2>Data Graph</h2>
         <canvas id="temperatureChart" aria-label="Temperature and Humidity Data"></canvas>
       </div>
-    </div>
+    </div> -->
   </div>
 </body>

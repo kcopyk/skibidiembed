@@ -1,5 +1,5 @@
 html, body {
-  height: 150%;  /* Ensure full height */
+  height: 100%;  /* Ensure full height */
   margin: 0;     /* Remove default margin */
   padding: 0;    /* Remove any padding */
   font-family: Arial, sans-serif;
@@ -14,6 +14,7 @@ body {
   flex-direction: column;
   min-height: 100vh;  /* Ensure body fills the screen */
 }
+
 
 /* Custom Card Styles */
 .custom-card {
